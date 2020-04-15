@@ -7,6 +7,7 @@ import java.util.List;
 public interface DeviceComponent {
     DeviceRS cmpGetDevice(String id);
     List<DeviceRS> cmpGetDevices();
+    List<DeviceRS> cmpGetDevicesTop(boolean type);
     void cmpAddDevice(String id, boolean type, float value);
     void cmpAdddDetail(String id, String name);
     void cmpUpdateDevice(String id, float value);

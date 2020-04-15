@@ -50,4 +50,10 @@ public class DeviceController {
     {
         service.svcDeleteDevice(id);
     }
+
+    @GetMapping(value = "/top", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Device> getMostUsedDevice(@RequestParam("type") boolean type)
+    {
+        return service.svcGetDevicesTop(type);
+    }
 }

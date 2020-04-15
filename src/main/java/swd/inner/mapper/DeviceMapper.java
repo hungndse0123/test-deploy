@@ -37,6 +37,22 @@ public interface DeviceMapper {
     })
     List<DeviceRS> getDevices();
 
+    @Select("SELECT TOP 5 d.d_id, de.d_name, d.d_type, d.d_value, de.d_status, de.d_online, de.d_duration " +
+            "FROM tbl_devices d " +
+            "INNER JOIN tbl_detail de ON d.d_id = de.d_id " +
+            "WHERE d.d_type = #{type} " +
+            "ORDER BY de.d_duration DESC ")
+    @Results({
+            @Result(column = "d_id", property = "id"),
+            @Result(column = "d_name", property = "name"),
+            @Result(column = "d_type", property = "type"),
+            @Result(column = "d_value", property = "value"),
+            @Result(column = "d_status", property = "status"),
+            @Result(column = "d_online", property = "online"),
+            @Result(column = "d_duration", property = "duration")
+    })
+    List<DeviceRS> getDevicesTop(@Param("type") boolean type);
+
     @Insert("INSERT INTO tbl_devices (d_id, d_type, d_value) " +
             "VALUES (#{id}, #{type}, #{value}) ")
     int addDevice(

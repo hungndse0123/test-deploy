@@ -45,6 +45,18 @@ public class DeviceComponentImp implements DeviceComponent{
     }
 
     @Override
+    public List<DeviceRS> cmpGetDevicesTop(boolean type) {
+        List<DeviceRS> devices = mapper.getDevicesTop(type);
+
+        if (devices.isEmpty())
+        {
+            throw new CustomException("Device list is empty");
+        }
+
+        return devices;
+    }
+
+    @Override
     public void cmpAddDevice(String id, boolean type, float value) {
         int i = mapper.addDevice(id, type, value);
 
