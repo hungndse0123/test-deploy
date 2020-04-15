@@ -11,5 +11,6 @@ public interface LogService {
     List<Log> svcGetLogByTypeAndTimestamp(boolean type, String start, String end);
     List<Log> svcGetLogById(String id);
     List<Log> svcGetLogByIdAndTimestamp(String id, String start, String end);
+    List<Log> svcGetLogPaging(int position, int size);
     int svcGetTotalOfType(boolean type);
 }

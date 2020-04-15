@@ -111,6 +111,21 @@ public class LogServiceImp implements LogService{
     }
 
     @Override
+    public List<Log> svcGetLogPaging(int position, int size) {
+        List<Log> svcList = new ArrayList<>();
+        List<LogRS> cmpList = component.cmpGetLogPaging(position, size);
+
+        for (LogRS logRS: cmpList)
+        {
+            Log log = new Log();
+            Utilities.copyNonNullProperties(logRS, log);
+            svcList.add(log);
+        }
+
+        return svcList;
+    }
+
+    @Override
     public int svcGetTotalOfType(boolean type) {
         return component.cmpGetTotalOfType(type);
     }

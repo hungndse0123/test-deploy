@@ -93,6 +93,18 @@ public class LogComponentImp implements LogComponent{
     }
 
     @Override
+    public List<LogRS> cmpGetLogPaging(int position, int size) {
+        List<LogRS> log = mapper.getLogPaging(position, size);
+
+        if (log.isEmpty())
+        {
+            throw new CustomException("Log is empty");
+        }
+
+        return log;
+    }
+
+    @Override
     public int cmpGetTotalOfType(boolean type) {
         return mapper.getTotalOfType(type);
     }

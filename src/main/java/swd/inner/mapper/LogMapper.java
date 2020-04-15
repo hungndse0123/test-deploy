@@ -28,6 +28,24 @@ public interface LogMapper {
             "FROM tbl_log e " +
             "INNER JOIN tbl_devices d ON e.e_recorded_device = d.d_id " +
             "INNER JOIN tbl_detail de ON d.d_id = de.d_id " +
+            "ORDER BY e.e_timestamp DESC OFFSET #{position} ROWS FETCH NEXT #{size} ROWS ONLY ")
+    @Results({
+            @Result(column = "e_id", property = "entryId"),
+            @Result(column = "e_recorded_device", property = "deviceId"),
+            @Result(column = "d_name", property = "deviceName"),
+            @Result(column = "d_type", property = "type"),
+            @Result(column = "d_value", property = "defaultValue"),
+            @Result(column = "e_recorded_value", property = "recordedValue"),
+            @Result(column = "e_timestamp", property = "timestamp")
+    })
+    List<LogRS> getLogPaging(
+            @Param("position") int position,
+            @Param("size") int size);
+
+    @Select("SELECT e.e_id, e.e_recorded_device, de.d_name, d.d_type, d.d_value, e.e_recorded_value, e.e_timestamp " +
+            "FROM tbl_log e " +
+            "INNER JOIN tbl_devices d ON e.e_recorded_device = d.d_id " +
+            "INNER JOIN tbl_detail de ON d.d_id = de.d_id " +
             "WHERE e.e_timestamp >= #{start} AND e.e_timestamp <= #{end} " +
             "ORDER BY e.e_timestamp DESC ")
     @Results({

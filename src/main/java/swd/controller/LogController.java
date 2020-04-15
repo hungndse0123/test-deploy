@@ -26,7 +26,9 @@ public class LogController {
             @RequestParam(value = "id", required = false) String id,
             @RequestParam(value = "start", required = false) String start,
             @RequestParam(value = "end", required = false) String end,
-            @RequestParam(value = "type", required = false) String type)
+            @RequestParam(value = "type", required = false) String type,
+            @RequestParam(value = "position", required = false) String position,
+            @RequestParam(value = "size", required = false) String size)
     {
         if (id == null)
         {
@@ -34,12 +36,22 @@ public class LogController {
             {
                 if (type == null)
                 {
-                    return service.svcGetLog();
+                    if (position == null && size == null)
+                    {
+                        return service.svcGetLog();
+                    }
+                    else
+                    {
+                        Integer positionObject = new Integer(position);
+                        Integer sizeObject = new Integer(size);
+
+                        return service.svcGetLogPaging(positionObject - 1, sizeObject);
+                    }
                 }
                 else
                 {
-                    Boolean typeObject = new Boolean(type);
-                    return service.svcGetLogByType(typeObject.booleanValue());
+                    Boolean typeObject = Boolean.valueOf(type);
+                    return service.svcGetLogByType(typeObject);
                 }
             }
             else
@@ -50,8 +62,8 @@ public class LogController {
                 }
                 else
                 {
-                    Boolean typeObject = new Boolean(type);
-                    return service.svcGetLogByTypeAndTimestamp(typeObject.booleanValue(), start, end);
+                    Boolean typeObject = Boolean.valueOf(type);
+                    return service.svcGetLogByTypeAndTimestamp(typeObject, start, end);
                 }
             }
         }

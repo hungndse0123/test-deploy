@@ -11,6 +11,7 @@ public interface LogComponent {
     List<LogRS> cmpGetLogByTypeAndTimestamp(boolean type, String start, String end);
     List<LogRS> cmpGetLogById(String id);
     List<LogRS> cmpGetLogByIdAndTimestamp(String id, String start, String end);
+    List<LogRS> cmpGetLogPaging(int position, int size);
     int cmpGetTotalOfType(boolean type);
     void deleteLog(String id);
 }
